@@ -11,6 +11,7 @@ makeCacheMatrix <- function(x = matrix()) {
     
     # Setting value of a matrix
     set <- function(val) {
+        message("makeCacheMatrix$set called")
         x <<- val
         inv <<- NULL
     }
