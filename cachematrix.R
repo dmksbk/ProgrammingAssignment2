@@ -3,8 +3,8 @@
 ## makeCacheMatrix creates version of the matrix
 ## wich caches it's inversevalue for purpose of later reuse
 
-## Write a short comment describing this function
-
+## Creates cached version of a matrix. x is an ordinary matrix value
+# that will be assigned to its cached version
 makeCacheMatrix <- function(x = matrix()) {
     # Cached value of inverse matrix
     inv <- NULL
@@ -31,20 +31,23 @@ makeCacheMatrix <- function(x = matrix()) {
     
 }
 
-
-## Write a short comment describing this function
+## Analog of solve function that uses cached version of a matrix as it's first argument
 
 cacheSolve <- function(x, ...) {
-        inv <- x$getinverse()
-        if (!is.null(inv))
-        {
-            message("Getting cached verion of inverse d matrix")
-            return(inv)
-        } else {
-            message("Calculating inverse of a matrix")
-            m <- x$get()
-            inv <- solve(m)
-            x$setinverse(inv)
-            return(inv)
-        }
+    # Get current version of inverse matrix
+    inv <- x$getinverse()
+    # If it's not null - we already have this value. Just return it
+    if (!is.null(inv))
+    {
+        message("Getting cached verion of inverse d matrix")
+        return(inv)
+    } else {
+        # Otherwise, if this value is null - inverse matrix has not been calculated yet.
+        # We have to calculate it and return
+        message("Calculating inverse of a matrix")
+        m <- x$get()
+        inv <- solve(m)
+        x$setinverse(inv)
+        return(inv)
+    }
 }
